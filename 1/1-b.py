@@ -1,8 +1,13 @@
-#resposta questão 1-b referente ao pdf "Atividade 01 - Expressões Aritméticas"
-a = int(input("Digite um número corespondente ao valor de a:"))
-b = int(input("Digite o valor corespondete ao valor de b: "))
-c = int(input("Digite o valor corespondete ao valor de c: "))
-A = int(input("Digite o valor corespondete ao valor de A: "))
+#resposta questão 1-b referente ao pdf "Atividade 01 - Expressões Aritméticas" - ok
+import math
 
-resultado = A**2 + 2*a*b + b**2
-print("O resultado da expressão é ", resultado)
+def inicio():
+    a = float(input("Digite um número corespondente ao valor de a:"))
+    b = float(input("Digite o valor corespondete ao valor de b: "))
+    c = float(input("Digite o valor corespondete ao valor de c: "))
+
+    resultado = a**2 + 2*a*c + b**2
+    print("O resultado da expressão é ", resultado)
+
+if __name__ == "__main__":
+    inicio()
