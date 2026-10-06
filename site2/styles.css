@@ -1,0 +1,406 @@
+/* ==========================================================================
+   VARIÁVEIS GLOBAIS (Design Tokens)
+   ========================================================================== */
+:root {
+  --pink: #d60270;
+  --purple: #9b4f96;
+  --blue: #0038a8;
+
+  --bg: #0f1221;         
+  --bg-soft: #141838;      
+  --text: #e7e8f0;          
+  --muted: #b8bbd9;         
+
+  --card-border: rgba(231, 232, 240, 0.12);
+  --radius: 14px;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   RESET GLOBAL E CONFIGURAÇÕES BÁSICAS
+   ========================================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* Torna a rolagem da página suave ao clicar em links âncora */
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+  /* Fundo composto por gradientes radiais sobrepostos e lineares */
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(214, 2, 112, 0.18), transparent 60%),
+    radial-gradient(1200px 800px at 100% 0, rgba(0, 56, 168, 0.18), transparent 60%),
+    linear-gradient(180deg, #0f1221 0%, #0c1022 100%);
+  color: var(--text);
+}
+
+a { text-decoration: none; color: inherit; }
+li { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* Centraliza e limita a largura máxima do conteúdo */
+.container {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+/* ==========================================================================
+   CABEÇALHO E NAVEGAÇÃO (Navbar & Logo)
+   ========================================================================== */
+.logo {
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  /* Efeito de texto com gradiente colorido */
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 24px;
+  position: relative;
+}
+
+/* Botão hambúrguer (oculto por padrão em telas grandes) */
+.icon-button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  display: none;  
+}
+
+.menu {
+  display: flex;
+  gap: 24px;
+}
+
+.menu a {
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--text);
+  transition: 200ms ease;
+}
+
+.menu a:hover,
+.menu a:focus-visible {
+  outline: none;
+  background: rgba(231,232,240,0.08);
+}
+
+/* ==========================================================================
+   SEÇÃO HERO (Apresentação Inicial)
+   ========================================================================== */
+.hero {
+  min-height: 60vh;
+  display: grid;
+  align-items: center;
+  padding: 10px 20px;
+  background:
+    radial-gradient(800px 500px at 80% 20%, rgba(155, 79, 150, 0.22), transparent 60%);
+}
+
+.hero-container {
+  text-align: center;
+}
+
+.intro {
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.hero-container h2 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin: 0 0 10px;
+  background: linear-gradient(90deg, var(--pink), var(--purple) 40%, var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.descricao {
+  color: var(--muted);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   ESTILOS GERAIS DE SEÇÕES
+   ========================================================================== */
+.section {
+  padding-block: clamp(48px, 6vw, 80px);
+  scroll-margin-top: 80px;  
+}
+
+.section h2 {
+  text-align: center;
+  margin: 0 0 24px;
+  font-size: clamp(1.6rem, 3.8vw, 2.2rem);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   SEÇÃO SOBRE MIM
+   ========================================================================== */
+#sobre .sobre-conteudo {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 900px) {
+  #sobre .sobre-conteudo {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sobre-texto p {
+  color: var(--text);
+  margin-bottom: 18px;
+  line-height: 1.65;
+}
+
+.sobre-dados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  align-content: start;
+}
+
+.sd-card {
+  background:
+    linear-gradient(180deg, rgba(231,232,240,0.05), rgba(231,232,240,0.02)),
+    linear-gradient(135deg, rgba(214,2,112,0.22), rgba(0,56,168,0.22));
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(4px);
+}
+
+.sobre-dados strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.sobre-dados span {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   SEÇÃO DE PROJETOS
+   ========================================================================== */
+#projetos h2 { margin-bottom: 18px; }
+
+.projetos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.projeto-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.projeto-card img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.projeto-card h3 {
+  margin: 0 0 8px;
+}
+
+.projeto-card p {
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.btn-outline {
+  display: inline-block;
+  color: #fff;
+  border: 2px solid var(--purple);
+  padding: 10px 14px;
+  border-radius: 12px;
+  transition: 180ms ease-in-out;
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  border-color: var(--pink);
+  background: linear-gradient(90deg, rgba(214,2,112,0.35), rgba(155,79,150,0.35));
+  outline: none;
+}
+
+/* ==========================================================================
+   SEÇÃO DE HABILIDADES
+   ========================================================================== */
+#habilidades p {
+  color: var(--muted);
+  margin: 10px 0 24px;
+  text-align: center;
+}
+
+.habilidades-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.habilidades-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  transition: border-color 160ms ease;
+}
+
+.habilidades-card:hover {
+  border-color: var(--purple);
+}
+
+.habilidades-card h3 {
+  margin: 0 0 10px;
+}
+
+.habilidades-card span {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  color: #fff;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ==========================================================================
+   SEÇÃO DE CONTATO
+   ========================================================================== */
+#contato p {
+  color: var(--muted);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.contatos-lista {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.contato-item {
+  background: var(--bg-soft);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  min-width: 230px;
+  text-align: center;
+}
+
+.contato-item strong {
+  color: #fff;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.contato-item span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.redes-sociais {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.redes-sociais a {
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  color: #fff;
+  padding: 10px 16px;
+  transition: 180ms ease;
+  background: linear-gradient(90deg, rgba(0,56,168,0.18), rgba(155,79,150,0.18));
+}
+
+.redes-sociais a:hover,
+.redes-sociais a:focus-visible {
+  outline: none;
+  border-color: var(--pink);
+  background: linear-gradient(90deg, rgba(214,2,112,0.28), rgba(155,79,150,0.28));
+}
+
+/* ==========================================================================
+   RODAPÉ (Footer)
+   ========================================================================== */
+.footer {
+  background: linear-gradient(90deg, var(--blue), var(--purple) 40%, var(--pink));
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE E MENU HAMBÚRGUER (Dispositivos Móveis)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Exibe o botão hambúrguer em telas menores */
+  #hamburger { display: inline-block; }
+
+  /* Transforma a lista de navegação horizontal em um menu vertical flutuante */
+  .menu {
+    position: absolute;
+    top: 58px;
+    right: 24px;
+    width: min(90vw, 320px);
+    padding: 12px;
+    background: #101429;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    flex-direction: column;
+    display: none;  
+    box-shadow: var(--shadow);
+    z-index: 10;
+  }
+
+  /* Exibe o menu quando acionado via classe JS (.ativa) ou estado de checkbox */
+  .menu.ativa, 
+  .menu-toggle:checked ~ .menu { 
+    display: flex; 
+  }
+
+  .menu a {
+    padding: 10px 12px;
+    border-radius: 8px;
+  }
+
+  /* Empilha os ícones de redes sociais verticalmente no mobile */
+  .redes-sociais { flex-direction: column; }
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Simples</title>
+</head>
+<body>
+    <h2>Calculadora</h2>
+    <form action="/calculadora" method="POST" >
+        <label for="numero1">Número 1:</label><br>
+        <input type="number" id="numero1" name="numero1"><br><br>
+
+        <label for="numero2">Número 2:</label><br>
+        <input type="number" id="numero2" name="numero2"><br><br>
+
+        <label for="operacao">Operação:</label><br>
+        <select id="operacao" name="operacao">
+            <option value="+">Soma (+)</option>
+            <option value="-">Subtração (-)</option>
+            <option value="*">Multiplicação (*)</option>
+            <option value="/">Divisão (/)</option>
+        </select><br><br>
+
+        <button type="submit">Calcular</button>
+    </form>
+    <br>
+    <p><b>Resultado: </b>{{ resultado }}
+</body>
+</html>

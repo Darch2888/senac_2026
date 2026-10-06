@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechLab - Página de Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="container">
+            <h1>TechLab</h1>
+            <p>Comunidade de tecnologia e inovação</p>
+
+            <nav class="menu">
+                <a href="#sobre">Sobre</a>
+                <a href="#atividades">Atividades</a>
+                <a href="#cadastro">Cadastro</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <div>
+                <span class="etiqueta">TECNOLOGIA • INOVAÇÃO • APRENDIZADO</span>
+                <h2>Aprenda. Crie. Compartilhe.</h2>
+                <p>
+                    Um espaço fictício para pessoas interessadas em programação,
+                    design e desenvolvimento de soluções digitais.
+                </p>
+                <a class="botao" href="#cadastro">Quero participar</a>
+            </div>
+
+            <div class="cartao-destaque">
+                <div class="icone">💻</div>
+                <h3>Próximo encontro</h3>
+                <p>Workshop de desenvolvimento web</p>
+                <strong>Sábado • 14h</strong>
+            </div>
+        </section>
+
+        <section id="sobre" class="secao">
+            <h2>Sobre a TechLab</h2>
+            <p>
+                A TechLab reúne estudantes para aprender, experimentar e desenvolver
+                pequenos projetos utilizando tecnologias web.
+            </p>
+
+            <div class="cards">
+                <article class="card">
+                    <span class="numero">01</span>
+                    <h3>Programação</h3>
+                    <p>Fundamentos de HTML, CSS e outras tecnologias.</p>
+                </article>
+
+                <article class="card">
+                    <span class="numero">02</span>
+                    <h3>Projetos</h3>
+                    <p>Desenvolvimento de ideias transformadas em protótipos.</p>
+                </article>
+
+                <article class="card">
+                    <span class="numero">03</span>
+                    <h3>Comunidade</h3>
+                    <p>Troca de experiências, conhecimento e colaboração.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="atividades" class="secao">
+            <h2>Atividades</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Atividade</th>
+                        <th>Dia</th>
+                        <th>Horário</th>
+                        <th>Vagas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HTML e CSS</td>
+                        <td>Segunda</td>
+                        <td>19h</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>UI Design</td>
+                        <td>Quarta</td>
+                        <td>19h</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Projeto Web</td>
+                        <td>Sábado</td>
+                        <td>14h</td>
+                        <td>25</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="cadastro" class="secao cadastro">
+            <div class="texto-cadastro">
+                <span class="etiqueta">INSCRIÇÃO</span>
+                <h2>Faça seu cadastro</h2>
+                <p>
+                    Preencha o formulário para demonstrar interesse nas atividades
+                    da TechLab.
+                </p>
+
+                <ul>
+                    <li>Encontros presenciais</li>
+                    <li>Projetos práticos</li>
+                    <li>Certificado de participação</li>
+                </ul>
+            </div>
+
+            <form class="formulario">
+                <div class="campo">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+                </div>
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="voce@email.com">
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label for="idade">Idade</label>
+                        <input type="number" id="idade" name="idade" min="14" max="100">
+                    </div>
+
+                    <div class="campo">
+                        <label for="data">Data de nascimento</label>
+                        <input type="date" id="data" name="data">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="cidade">Cidade</label>
+                    <select id="cidade" name="cidade">
+                        <option value="">Selecione</option>
+                        <option>São José</option>
+                        <option>Florianópolis</option>
+                        <option>Palhoça</option>
+                        <option>Biguaçu</option>
+                    </select>
+                </div>
+
+                <fieldset>
+                    <legend>Área de interesse</legend>
+
+                    <label class="opcao">
+                        <input type="radio" name="area" value="programacao">
+                        Programação
+                    </label>
+
+                    <label class="opcao">
+                        <input type="radio" name="area" value="design">
+                        Design
+                    </label>
+
+                    <label class="opcao">
+                        <input type="radio" name="area" value="dados">
+                        Dados
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Quais temas você gosta?</legend>
+
+                    <label class="opcao">
+                        <input type="checkbox" name="tema" value="html">
+                        HTML
+                    </label>
+
+                    <label class="opcao">
+                        <input type="checkbox" name="tema" value="css">
+                        CSS
+                    </label>
+
+                    <label class="opcao">
+                        <input type="checkbox" name="tema" value="ux">
+                        UX/UI
+                    </label>
+                </fieldset>
+
+                <div class="campo">
+                    <label for="mensagem">Conte um pouco sobre você</label>
+                    <textarea id="mensagem" name="mensagem" rows="5"
+                              placeholder="Escreva aqui..."></textarea>
+                </div>
+
+                <label class="aceite">
+                    <input type="checkbox" name="aceite">
+                    Aceito receber informações sobre as atividades.
+                </label>
+
+                <button type="submit">Enviar cadastro</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p>&copy; 2026 TechLab — Projeto fictício para fins educacionais.</p>
+            <a href="#topo">Voltar ao topo</a>
+        </div>
+    </footer>
+
+</body>
+</html>

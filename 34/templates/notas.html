@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cálculo de Média</title>
+    <style>
+        table, th, td {
+            border: 1px solid #333;
+            border-collapse: collapse;
+            padding: 8px;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calcular Média</h2>
+
+    <form method="POST" action="/media">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nota 1</th>
+                    <th>Nota 2</th>
+                    <th>Nota 3</th>
+                    <th>Média</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="number" name="nota1" step="0.01" value = "{{ nota1 }}" required></td>
+                    <td><input type="number" name="nota2" step="0.01" value = "{{ nota1 }}" required></td>
+                    <td><input type="number" name="nota3" step="0.01" value = "{{ nota1 }}" required></td>
+                    <td>
+                        {% if media is not none %}
+                            {{ "%.2f"|format(media) }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <button type="submit">Calcular</button>
+    </form>
+</body>
+</html>

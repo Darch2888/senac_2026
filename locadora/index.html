@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retrô Filmes Locadora</title>
+
+<style>
+:root {
+    --fundo-principal-top: #0d1527;
+    --fundo-principal-mid: #0b101e;
+    --fundo-principal-bottom: #050811;
+    --fundo-banner: #131a2e;
+    --card: #182035;
+    --card-border: #283556;
+    --azul-neon: #3a86ff;
+    --amarelo-retro: #ffbe0b;
+    --vermelho-destaque: #e63946;
+    --vermelho-hover: #ff4d5a;
+    --texto: #f8f9fa;
+    --cinza: #a0aec0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(180deg, var(--fundo-principal-top) 0%, var(--fundo-principal-mid) 50%, var(--fundo-principal-bottom) 100%);
+    background-attachment: fixed;
+    color: var(--texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    background: rgba(11, 16, 30, 0.90);
+    backdrop-filter: blur(10px);
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid rgba(255, 190, 11, 0.3);
+}
+
+header h1 {
+    color: var(--amarelo-retro);
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 12px rgba(255, 190, 11, 0.4);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav a {
+    color: var(--texto);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
+}
+
+nav a:hover {
+    color: var(--amarelo-retro);
+    background-color: rgba(58, 134, 255, 0.15);
+    text-shadow: 0 0 8px rgba(255, 190, 11, 0.5);
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: radial-gradient(circle at top center, rgba(27, 38, 69, 0.8) 0%, transparent 70%);
+    padding-top: 30px;
+}
+
+.fachada-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease;
+    transform-origin: center top;
+}
+
+.fachada-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(58, 134, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.fachada-container.shrink {
+    transform: scale(0.65);
+    opacity: 0.88;
+}
+
+.banner-conteudo {
+    text-align: center;
+    margin: 30px 20px 10px;
+}
+
+.banner h2 {
+    font-size: 2.3rem;
+    color: var(--texto);
+    margin-bottom: 10px;
+}
+
+.banner p {
+    font-size: 1.1rem;
+    color: var(--cinza);
+}
+
+.galeria-deslizante {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    background: rgba(19, 26, 46, 0.6);
+    padding: 22px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 25px;
+}
+
+.esteira-posters {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: deslizarPosters 40s linear infinite;
+}
+
+.esteira-posters:hover {
+    animation-play-state: paused;
+}
+
+.poster-cartaz {
+    width: 160px;
+    height: 235px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+}
+
+.poster-cartaz img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes deslizarPosters {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 10px)); }
+}
+
+main {
+    padding: 50px 40px 80px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.prateleira {
+    margin-bottom: 50px;
+}
+
+.prateleira-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.prateleira-titulo h2 {
+    font-size: 24px;
+    color: var(--texto);
+    border-bottom: 3px solid var(--amarelo-retro);
+    padding-bottom: 4px;
+}
+
+.prateleira-titulo span {
+    font-size: 14px;
+    color: var(--cinza);
+}
+
+.estante {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding-bottom: 12px;
+}
+
+.card {
+    background-color: var(--card);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 240px;
+    border: 1px solid var(--card-border);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 12px rgba(58, 134, 255, 0.2);
+    border-color: var(--azul-neon);
+}
+
+.card img {
+    width: 100%;
+    height: 290px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-info {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.genero-tag {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: rgba(58, 134, 255, 0.15);
+    color: var(--azul-neon);
+    border: 1px solid rgba(58, 134, 255, 0.3);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.comida-tag {
+    background-color: rgba(255, 190, 11, 0.15);
+    color: var(--amarelo-retro);
+    border: 1px solid rgba(255, 190, 11, 0.3);
+}
+
+.merch-tag {
+    background-color: rgba(230, 57, 70, 0.15);
+    color: var(--vermelho-hover);
+    border: 1px solid rgba(230, 57, 70, 0.3);
+}
+
+.card-info h3 {
+    font-size: 15px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-info p {
+    font-size: 12px;
+    color: var(--cinza);
+    margin-bottom: 10px;
+}
+
+.preco {
+    color: var(--amarelo-retro) !important;
+    font-weight: bold;
+    font-size: 14px !important;
+    margin-top: auto;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 9px;
+    border: none;
+    border-radius: 5px;
+    background: var(--vermelho-destaque);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 8px;
+}
+
+.btn:hover {
+    background: var(--vermelho-hover);
+}
+
+.btn-detalhes {
+    background: transparent;
+    border: 1px solid var(--azul-neon);
+    color: var(--azul-neon);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-detalhes:hover {
+    background: rgba(58, 134, 255, 0.2);
+    color: #fff;
+}
+
+.painel-detalhes {
+    display: none;
+    padding: 12px;
+    background-color: #0d1322;
+    border-top: 1px solid var(--card-border);
+    font-size: 12px;
+    color: var(--cinza);
+}
+
+.painel-detalhes.visivel {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.painel-detalhes h4 {
+    color: var(--amarelo-retro);
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.painel-detalhes p {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.painel-detalhes .atores {
+    color: var(--texto);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.trailer-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.trailer-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* FORMULÁRIO DE RESERVA */
+.aluguel {
+    background-color: var(--card);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 12px;
+    padding: 35px;
+    max-width: 700px;
+    margin: 60px auto 30px;
+}
+
+.aluguel h2 {
+    color: var(--amarelo-retro);
+    margin-bottom: 10px;
+}
+
+.aluguel p {
+    color: var(--cinza);
+    margin-bottom: 25px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formulario label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.formulario input,
+.formulario select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    background-color: var(--fundo-principal-bottom);
+    color: var(--texto);
+    font-size: 14px;
+}
+
+.formulario input:focus,
+.formulario select:focus {
+    outline: none;
+    border-color: var(--azul-neon);
+}
+
+.formulario button {
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    background: var(--vermelho-destaque);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.formulario button:hover {
+    background: var(--vermelho-hover);
+}
+
+.aviso {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255, 190, 11, 0.08);
+    border-left: 4px solid var(--amarelo-retro);
+    color: var(--cinza);
+    font-size: 13px;
+    border-radius: 0 6px 6px 0;
+}
+
+footer {
+    background-color: rgba(5, 8, 17, 0.95);
+    text-align: center;
+    padding: 30px;
+    color: var(--cinza);
+    font-size: 13px;
+    border-top: 1px solid var(--card-border);
+}
+
+@media (max-width: 900px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    nav {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav a {
+        font-size: 14px;
+        padding: 5px 8px;
+    }
+
+    main {
+        padding: 25px 20px;
+    }
+
+    .banner h2 {
+        font-size: 1.7rem;
+    }
+
+    .fachada-container.shrink {
+        transform: scale(0.85);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Retrô Filmes Locadora</h1>
+
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#acao">Ação</a>
+        <a href="#drama">Drama</a>
+        <a href="#terror">Terror</a>
+        <a href="#scifi">Ficção</a>
+        <a href="#comidinhas">Comidinhas</a>
+        <a href="#loja">Lojinha</a>
+        <a href="#aluguel">Alugar/Comprar</a>
+    </nav>
+</header>
+
+<section class="banner" id="inicio">
+    <div class="fachada-container" id="fachada">
+        <img src="fachada.jpg" alt="Fachada da Locadora Retrô">
+    </div>
+
+    <div class="banner-conteudo">
+        <h2>Alugue seu filme e reviva a nostalgia</h2>
+        <p>Escolha seu filme, garanta os snacks e leve pra casa nossos produtos exclusivos Retrô Filmes!</p>
+    </div>
+
+    <div class="galeria-deslizante">
+        <div class="esteira-posters">
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_.jpg" alt="Matrix"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/S/pv-target-images/a1b451714d3a4959c9c2e2e554cb8b4760b8e17fbe5c6210672957d63e6f9fb4.jpg" alt="John Wick"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BMjA0ODEyMDEwMV5BMl5BanBnXkFtZTgwODY5SMKV._V1_.jpg" alt="Gladiador"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4XkEyXkFqcGc@._V1_.jpg" alt="Matrix Reloaded"></div>
+            <div class="poster-cartaz"><img src="https://br.web.img3.acsta.net/pictures/14/10/10/19/21/152595.jpg" alt="O Iluminado"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmNW2ebdXkEyXkFqcGc@._V1_.jpg" alt="Pulp Fiction"></div>
+            <div class="poster-cartaz"><img src="https://br.web.img3.acsta.net/medias/nmedia/18/90/95/62/20122008.jpg" alt="De Volta para o Futuro"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGc@._V1_.jpg" alt="O Resgate do Soldado Ryan"></div>
+            <div class="poster-cartaz"><img src="https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/90/95/96/20122166.jpg" alt="Clube da Luta"></div>
+
+            <!-- Repetição para o efeito infinito do scroll CSS -->
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_.jpg" alt="Matrix"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/S/pv-target-images/a1b451714d3a4959c9c2e2e554cb8b4760b8e17fbe5c6210672957d63e6f9fb4.jpg" alt="John Wick"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BMjA0ODEyMDEwMV5BMl5BanBnXkFtZTgwODY5SMKV._V1_.jpg" alt="Gladiador"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4XkEyXkFqcGc@._V1_.jpg" alt="Matrix Reloaded"></div>
+            <div class="poster-cartaz"><img src="https://br.web.img3.acsta.net/pictures/14/10/10/19/21/152595.jpg" alt="O Iluminado"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmNW2ebdXkEyXkFqcGc@._V1_.jpg" alt="Pulp Fiction"></div>
+            <div class="poster-cartaz"><img src="https://br.web.img3.acsta.net/medias/nmedia/18/90/95/62/20122008.jpg" alt="De Volta para o Futuro"></div>
+            <div class="poster-cartaz"><img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGc@._V1_.jpg" alt="O Resgate do Soldado Ryan"></div>
+            <div class="poster-cartaz"><img src="https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/90/95/96/20122166.jpg" alt="Clube da Luta"></div>
+        </div>
+    </div>
+</section>
+
+<main>
+
+<!-- AÇÃO -->
+<section class="prateleira" id="acao">
+    <div class="prateleira-titulo">
+        <h2>Ação</h2>
+        <span>• adrenalina pura</span>
+    </div>
+
+    <div class="estante">
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_.jpg" alt="Matrix">
+            <div class="card-info">
+                <span class="genero-tag">Ação</span>
+                <h3>Matrix</h3>
+                <p>1999 • 2h 16m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-matrix')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-matrix" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um jovem programador é liderado por um misterioso rebelde para a verdadeira realidade por trás da ilusão criada pela Matrix.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/vKQi3bBA1y8" title="Matrix Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/S/pv-target-images/a1b451714d3a4959c9c2e2e554cb8b4760b8e17fbe5c6210672957d63e6f9fb4.jpg" alt="John Wick">
+            <div class="card-info">
+                <span class="genero-tag">Ação</span>
+                <h3>John Wick</h3>
+                <p>2014 • 1h 41m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-wick')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-wick" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um lendário assassino aposentado volta à ativa em busca de vingança contra os mafiosos que destruíram tudo o que ele amava.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Keanu Reeves, Michael Nyqvist, Alfie Allen</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/C0BMx-qxsP4" title="John Wick Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWW192rWnZEqlV6mSQugd2UNlebMqwgi9mgFHea3ttN9U30QONDbtTvAjX&s=10" alt="Mad Max">
+            <div class="card-info">
+                <span class="genero-tag">Ação</span>
+                <h3>Mad Max: Estrada da Fúria</h3>
+                <p>2015 • 2h 0m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-madmax')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-madmax" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Em um mundo pós-apocalíptico, Max se une à Imperatriz Furiosa para fugir de um tirano implacável em uma perseguição no deserto.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Tom Hardy, Charlize Theron, Nicholas Hoult</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/hEJnMQG9ev8" title="Mad Max Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMjA0ODEyMDEwMV5BMl5BanBnXkFtZTgwODY5SMKV._V1_.jpg" alt="Gladiador">
+            <div class="card-info">
+                <span class="genero-tag">Ação</span>
+                <h3>Gladiador</h3>
+                <p>2000 • 2h 35m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-gladiador')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-gladiador" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um ex-general romano busca vingança contra o imperador corrupto que assassinou sua família e o enviou para a escravidão.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Russell Crowe, Joaquin Phoenix, Connie Nielsen</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/P5ieIbInF5s" title="Gladiador Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMDdhODg0MjYtYzBiOS00ZmI5LWEwZGYtZDEyNDU4MmE1NTgyXkEyXkFqcGc@._V1_.jpg" alt="Duro de Matar">
+            <div class="card-info">
+                <span class="genero-tag">Ação</span>
+                <h3>Duro de Matar</h3>
+                <p>1988 • 2h 12m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-duro-matar')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-duro-matar" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>O policial John McClane tenta salvar sua esposa e outras pessoas tomadas como reféns por terroristas durante uma festa de Natal em LA.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Bruce Willis, Alan Rickman, Bonnie Bedelia</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/g4OBUUPxfEg" title="Duro de Matar Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4XkEyXkFqcGc@._V1_.jpg" alt="Top Gun: Maverick">
+            <div class="card-info">
+                <span class="genero-tag">Ação</span>
+                <h3>Top Gun: Maverick</h3>
+                <p>2022 • 2h 11m</p>
+                <p class="preco">Aluguel: R$ 9,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-topgun')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-topgun" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Depois de mais de 30 anos de serviço, Pete 'Maverick' Mitchell é chamado para treinar um grupo de graduados Top Gun para uma missão especial.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Tom Cruise, Miles Teller, Jennifer Connelly</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/giXco2jaZ_4" title="Top Gun Maverick Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DRAMA -->
+<section class="prateleira" id="drama">
+    <div class="prateleira-titulo">
+        <h2>Drama</h2>
+        <span>• histórias que marcam</span>
+    </div>
+
+    <div class="estante">
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAVq7H1K0Pkg0xCcKJKdPHcdnI4kL2eWBT1ozqUxESjtmoYMalSOiZGsdF&s=10" alt="O Poderoso Chefão">
+            <div class="card-info">
+                <span class="genero-tag">Drama</span>
+                <h3>O Poderoso Chefão</h3>
+                <p>1972 • 2h 55m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-chefao')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-chefao" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>O patriarca idoso de uma dinastia do crime organizado transfere o controle de seu império clandestino para seu filho relutante.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Marlon Brando, Al Pacino, James Caan</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/sY1S349gYlU" title="O Poderoso Chefão Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/90/95/96/20122166.jpg" alt="Clube da Luta">
+            <div class="card-info">
+                <span class="genero-tag">Drama</span>
+                <h3>Clube da Luta</h3>
+                <p>1999 • 2h 19m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-clube')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-clube" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um homem insone e um saboeiro carismático criam um clube de lutas clandestino que se transforma em algo muito maior.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Brad Pitt, Edward Norton, Helena Bonham Carter</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/qtRKdVHc-cE" title="Clube da Luta Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGc@._V1_.jpg" alt="O Resgate do Soldado Ryan">
+            <div class="card-info">
+                <span class="genero-tag">Drama</span>
+                <h3>O Resgate do Soldado Ryan</h3>
+                <p>1998 • 2h 49m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-ryan')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-ryan" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Após o desembarque na Normandia, um grupo de soldados americanos vai atrás das linhas inimigas para resgatar um paraquedista.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Tom Hanks, Matt Damon, Tom Sizemore</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/zwhP5b4tD6g" title="O Resgate do Soldado Ryan Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmNW2ebdXkEyXkFqcGc@._V1_.jpg" alt="Pulp Fiction">
+            <div class="card-info">
+                <span class="genero-tag">Drama</span>
+                <h3>Pulp Fiction</h3>
+                <p>1994 • 2h 34m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-pulp')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-pulp" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>As vidas de dois assassinos da máfia, um pugilista e um casal de assaltantes se entrelaçam em quatro histórias de violência e redenção.</p>
+                <h4>Atores:</h4>
+                <p class="atores">John Travolta, Uma Thurman, Samuel L. Jackson</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/s7EdQ4FqbhY" title="Pulp Fiction Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMTQxMDA2OTkxMV5BMl5BanBnXkFtZTgwNTI4MDM4MTE@._V1_.jpg" alt="Um Sonho de Liberdade">
+            <div class="card-info">
+                <span class="genero-tag">Drama</span>
+                <h3>Um Sonho de Liberdade</h3>
+                <p>1994 • 2h 22m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-sonho')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-sonho" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Dois homens presos constroem uma amizade ao longo dos anos, encontrando consolo e eventual redenção através de atos de compaixão.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Tim Robbins, Morgan Freeman, Bob Gunton</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/PLl99DfY64U" title="Um Sonho de Liberdade Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TERROR -->
+<section class="prateleira" id="terror">
+    <div class="prateleira-titulo">
+        <h2>Terror</h2>
+        <span>• não durma com a luz apagada</span>
+    </div>
+
+    <div class="estante">
+        <div class="card">
+            <img src="https://br.web.img3.acsta.net/pictures/14/10/10/19/21/152595.jpg" alt="O Iluminado">
+            <div class="card-info">
+                <span class="genero-tag">Terror</span>
+                <h3>O Iluminado</h3>
+                <p>1980 • 2h 26m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-iluminado')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-iluminado" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um escritor e sua família se isolam em um hotel sombrio no inverno, onde forças sobrenaturais começam a afetar sua sanidade.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Jack Nicholson, Shelley Duvall, Danny Lloyd</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/S014oGZiSdI" title="O Iluminado Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMTM3NjA1NDMyMV5BMl5BanBnXkFtZTcwMDQzNDMzOQ@@._V1_.jpg" alt="Invocação do Mal">
+            <div class="card-info">
+                <span class="genero-tag">Terror</span>
+                <h3>Invocação do Mal</h3>
+                <p>2013 • 1h 52m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-invocacao')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-invocacao" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Investigadores paranormais trabalham para ajudar uma família aterrorizada por uma presença sombria em sua fazenda.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Vera Farmiga, Patrick Wilson, Lili Taylor</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/k10ETZ41q5o" title="Invocação do Mal Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BOTU5MDg3OGItM2I0YS00N2IxLTgwMDYtM2I5NTg1ZmE4Mjc5XkEyXkFqcGc@._V1_.jpg" alt="Hereditário">
+            <div class="card-info">
+                <span class="genero-tag">Terror</span>
+                <h3>Hereditário</h3>
+                <p>2018 • 2h 07m</p>
+                <p class="preco">Aluguel: R$ 8,50</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-hereditario')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-hereditario" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Após a morte da avó, uma família começa a desvendar segredos sombrios e traumatizantes sobre sua linhagem ancestral.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Toni Collette, Milly Shapiro, Alex Wolff</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/V6wWKNij_fc" title="Hereditário Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BY2I4MGFhM2UtM2ZhYi00ZTBkLTg2OGUtZjY4ZDFjYTE4NzA4XkEyXkFqcGc@._V1_.jpg" alt="Alien, o Oitavo Passageiro">
+            <div class="card-info">
+                <span class="genero-tag">Terror</span>
+                <h3>Alien, o Oitavo Passageiro</h3>
+                <p>1979 • 1h 57m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-alien')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-alien" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>A tripulação de uma nave espacial comercial investiga um sinal de socorro e descobre uma forma de vida mortal que caça todos a bordo.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Sigourney Weaver, Tom Skerritt, John Hurt</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/LjLamj-b0I8" title="Alien Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FICÇÃO -->
+<section class="prateleira" id="scifi">
+    <div class="prateleira-titulo">
+        <h2>Ficção Científica</h2>
+        <span>• outros mundos, outras eras</span>
+    </div>
+
+    <div class="estante">
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpSr9YIYeUuoHVxfp_HBODbgcNVNCg72_0J67vH2o2Pw&s=10" alt="Interestelar">
+            <div class="card-info">
+                <span class="genero-tag">Sci-Fi</span>
+                <h3>Interestelar</h3>
+                <p>2014 • 2h 49m</p>
+                <p class="preco">Aluguel: R$ 9,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-interestelar')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-interestelar" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Uma equipe de exploradores viaja através de um buraco de minhoca no espaço para garantir a sobrevivência da humanidade.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Matthew McConaughey, Anne Hathaway, Jessica Chastain</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/zSWdZVtXT7E" title="Interestelar Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://br.web.img3.acsta.net/medias/nmedia/18/90/95/62/20122008.jpg" alt="De Volta para o Futuro">
+            <div class="card-info">
+                <span class="genero-tag">Sci-Fi</span>
+                <h3>De Volta para o Futuro</h3>
+                <p>1985 • 1h 56m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-futuro')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-futuro" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um jovem acidentalmente viaja no tempo até 1955 a bordo de um DeLorean transformado em máquina do tempo por um cientista excêntrico.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Michael J. Fox, Christopher Lloyd, Lea Thompson</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/qvsgGtivCgs" title="De Volta para o Futuro Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/pt/a/a3/Dune_2021.jpeg" alt="Duna">
+            <div class="card-info">
+                <span class="genero-tag">Sci-Fi</span>
+                <h3>Duna</h3>
+                <p>2021 • 2h 35m</p>
+                <p class="preco">Aluguel: R$ 9,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-duna')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-duna" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Paul Atreides viaja para o planeta mais perigoso do universo para garantir o futuro de sua família e de seu povo.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Timothée Chalamet, Zendaya, Rebecca Ferguson</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/n9xhJrPrl44" title="Duna Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4XkEyXkFqcGc@._V1_.jpg" alt="Blade Runner 2049">
+            <div class="card-info">
+                <span class="genero-tag">Sci-Fi</span>
+                <h3>Blade Runner 2049</h3>
+                <p>2017 • 2h 44m</p>
+                <p class="preco">Aluguel: R$ 8,50</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-bladerunner')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-bladerunner" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um novo caçador de replicantes desenterra um segredo há muito enterrado que o leva a rastrear o ex-caçador Rick Deckard.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Ryan Gosling, Harrison Ford, Ana de Armas</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/gCcx85zbxz4" title="Blade Runner 2049 Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://m.media-amazon.com/images/M/MV5BMTg0NTM3MTI1MF5BMl5BanBnXkFtZTcwMTAzNzA3Mg@@._V1_.jpg" alt="O Exterminador do Futuro 2">
+            <div class="card-info">
+                <span class="genero-tag">Sci-Fi</span>
+                <h3>Exterminador do Futuro 2</h3>
+                <p>1991 • 2h 17m</p>
+                <p class="preco">Aluguel: R$ 8,00</p>
+                <button class="btn-detalhes" onclick="toggleDetalhes('detalhes-terminator2')">🎬 Ver Detalhes & Trailer</button>
+                <a href="#aluguel" class="btn">Alugar filme</a>
+            </div>
+            <div id="detalhes-terminator2" class="painel-detalhes">
+                <h4>Sinopse:</h4>
+                <p>Um ciborgue idêntico ao que tentou matar Sarah Connor é enviado de volta no tempo para proteger seu filho jovem de um modelo mais avançado.</p>
+                <h4>Atores:</h4>
+                <p class="atores">Arnold Schwarzenegger, Linda Hamilton, Edward Furlong</p>
+                <h4>Trailer:</h4>
+                <div class="trailer-container">
+                    <iframe src="https://www.youtube.com/embed/CRRlbK5w8AE" title="Exterminador do Futuro 2 Trailer" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMIDINHAS -->
+<section class="prateleira" id="comidinhas">
+    <div class="prateleira-titulo">
+        <h2>Catálogo de Comidinhas</h2>
+        <span>• o acompanhamento perfeito</span>
+    </div>
+
+    <div class="estante">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1578849278619-e73505e9610f?auto=format&fit=crop&w=500&q=80" alt="Pipoca Manteiga">
+            <div class="card-info">
+                <span class="genero-tag comida-tag">Snack Bar</span>
+                <h3>Pipoca Manteiga G</h3>
+                <p>Aqueça na hora • 150g</p>
+                <p class="preco">Preço: R$ 12,00</p>
+                <a href="#aluguel" class="btn">Adicionar</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80" alt="Refrigerante Lata">
+            <div class="card-info">
+                <span class="genero-tag comida-tag">Bebidas</span>
+                <h3>Coca-Cola Lata</h3>
+                <p>Geladinha • 350ml</p>
+                <p class="preco">Preço: R$ 6,00</p>
+                <a href="#aluguel" class="btn">Adicionar</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?auto=format&fit=crop&w=500&q=80" alt="Chocolates Diversos">
+            <div class="card-info">
+                <span class="genero-tag comida-tag">Doces</span>
+                <h3>M&M's Pacote Família</h3>
+                <p>Chocolate ao Leite • 148g</p>
+                <p class="preco">Preço: R$ 10,00</p>
+                <a href="#aluguel" class="btn">Adicionar</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=500&q=80" alt="Nachos com Queijo">
+            <div class="card-info">
+                <span class="genero-tag comida-tag">Snack Bar</span>
+                <h3>Doritos c/ Molho Cheddar</h3>
+                <p>Acompanha dipping • 120g</p>
+                <p class="preco">Preço: R$ 14,00</p>
+                <a href="#aluguel" class="btn">Adicionar</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEÇÃO DE PRODUTOS DA LOCADORA (MERCH) -->
+<section class="prateleira" id="loja">
+    <div class="prateleira-titulo">
+        <h2>Lojinha & Merch Retrô</h2>
+        <span>• leve a nostalgia para casa</span>
+    </div>
+
+    <div class="estante">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=500&q=80" alt="Boné Retrô Locadora">
+            <div class="card-info">
+                <span class="genero-tag merch-tag">Acessórios</span>
+                <h3>Boné Vintage Retrô Filmes</h3>
+                <p>Ajustável • Logo Bordado</p>
+                <p class="preco">Preço: R$ 45,00</p>
+                <a href="#aluguel" class="btn">Comprar</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" alt="Camiseta Retrô Locadora">
+            <div class="card-info">
+                <span class="genero-tag merch-tag">Vestuário</span>
+                <h3>Camiseta "Por Favor, Rebobine"</h3>
+                <p>100% Algodão • P ao GG</p>
+                <p class="preco">Preço: R$ 65,00</p>
+                <a href="#aluguel" class="btn">Comprar</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80" alt="Copo / Caneca Retrô Locadora">
+            <div class="card-info">
+                <span class="genero-tag merch-tag">Colecionável</span>
+                <h3>Copo Térmico Retrô Filmes</h3>
+                <p>Inox 500ml • Mantém Gelado</p>
+                <p class="preco">Preço: R$ 38,00</p>
+                <a href="#aluguel" class="btn">Comprar</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80" alt="Fita VHS Comemorativa">
+            <div class="card-info">
+                <span class="genero-tag merch-tag">Edição Especial</span>
+                <h3>Fita Videocassette VHS Logo</h3>
+                <p>Réplica Decorativa • Estojo Retrô</p>
+                <p class="preco">Preço: R$ 50,00</p>
+                <a href="#aluguel" class="btn">Comprar</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FORMULÁRIO -->
+<section class="aluguel" id="aluguel">
+    <h2>Reservar filme, comidinhas ou colecionáveis</h2>
+    <p>
+        Preencha seus dados para fazer o pedido de reserva ou compra.
+        A retirada e o pagamento são realizados presencialmente na locadora.
+    </p>
+
+    <form class="formulario" action="#" method="post">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone" required>
+
+        <label for="filme">Filme desejado (opcional se for apenas merch)</label>
+        <select id="filme" name="filme">
+            <option value="">Nenhum filme selecionado</option>
+            <option>Matrix</option>
+            <option>John Wick</option>
+            <option>Mad Max: Estrada da Fúria</option>
+            <option>Gladiador</option>
+            <option>Duro de Matar</option>
+            <option>Top Gun: Maverick</option>
+            <option>O Poderoso Chefão</option>
+            <option>Clube da Luta</option>
+            <option>O Resgate do Soldado Ryan</option>
+            <option>Pulp Fiction</option>
+            <option>Um Sonho de Liberdade</option>
+            <option>O Iluminado</option>
+            <option>Invocação do Mal</option>
+            <option>Hereditário</option>
+            <option>Alien, o Oitavo Passageiro</option>
+            <option>Interestelar</option>
+            <option>De Volta para o Futuro</option>
+            <option>Duna</option>
+            <option>Blade Runner 2049</option>
+            <option>Exterminador do Futuro 2</option>
+        </select>
+
+        <label for="snack">Comidinha / Bebida (opcional)</label>
+        <select id="snack" name="snack">
+            <option value="">Nenhum acompanhamento</option>
+            <option>Pipoca Manteiga G (R$ 12,00)</option>
+            <option>Coca-Cola Lata (R$ 6,00)</option>
+            <option>M&M's Pacote Família (R$ 10,00)</option>
+            <option>Doritos c/ Molho Cheddar (R$ 14,00)</option>
+        </select>
+
+        <label for="merch">Item da Lojinha / Merch (opcional)</label>
+        <select id="merch" name="merch">
+            <option value="">Nenhum item da lojinha</option>
+            <option>Boné Vintage Retrô Filmes (R$ 45,00)</option>
+            <option>Camiseta "Por Favor, Rebobine" (R$ 65,00)</option>
+            <option>Copo Térmico Retrô Filmes (R$ 38,00)</option>
+            <option>Fita Videocassette VHS Logo (R$ 50,00)</option>
+        </select>
+
+        <label for="data">Data para retirada</label>
+        <input type="date" id="data" name="data" required>
+
+        <button type="submit">Confirmar pedido / reserva</button>
+    </form>
+
+    <div class="aviso">
+        A reserva não é um pagamento online. Após confirmar, o cliente deverá comparecer à locadora na data escolhida para pagar e retirar os filmes, guloseimas e itens colecionáveis.
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>Retrô Filmes Locadora — desde sempre, para sempre</p>
+    <p>Aluguel de filmes e produtos colecionáveis com retirada presencial</p>
+</footer>
+
+<script>
+window.addEventListener('scroll', function() {
+    const fachada = document.getElementById('fachada');
+    if (window.scrollY > 80) {
+        fachada.classList.add('shrink');
+    } else {
+        fachada.classList.remove('shrink');
+    }
+});
+
+function toggleDetalhes(idElemento) {
+    const painel = document.getElementById(idElemento);
+    if (painel) {
+        painel.classList.toggle('visivel');
+    }
+}
+</script>
+
+</body>
+</html>
