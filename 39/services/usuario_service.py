@@ -1,8 +1,8 @@
 #verificar a primeira linha do from
 #verificar por que usuario ficou estranho
 from flask import session
-from conn import DB_Session, SessionLocal
-from usuario import Usuario
+from conn import DB_Session
+from model import Usuario
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
