@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, jsonify, render_template, request
 from flask_cors import CORS
-from services.usuario_service import usuario_alterar_senha, usuario_aprovar
-from route.usuario_routes import usuario_routes
+#from services.usuario_service import usuario_alterar_senha, usuario_aprovar
+#from route.usuario_routes import usuario_routes
 from auth.middleware import register_middlewares
 
 # construindo a aplicação flask
