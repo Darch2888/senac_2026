@@ -1,4 +1,4 @@
-BACKEND_URL = "http://localhost:5000/usuario";
+BACKEND_URL = "http://127.0.0.1:5000/usuario";
 tabela_usuarios = document.getElementById("listaUsuarios");
 formulario_registro = document.getElementById("frmRegistro");
 formulario_login = document.getElementById("frmLogin");

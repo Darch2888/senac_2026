@@ -9,8 +9,8 @@ from model.usuario import Usuario
 def usuario_listar():
     usuarios = []
 
-    with BD_Session() as DB_sessao:
-        dados = DB_sessao.query(Usuario).order_by(Usuario.login).all()
+    with BD_Session() as bd_sessao:
+        dados = bd_sessao.query(Usuario).order_by(Usuario.login).all()
         if dados:
             usuarios = [usuario.to_print() for usuario in dados]
 
@@ -18,8 +18,8 @@ def usuario_listar():
 
 def usuario_detalhe(id):
     usuario = None
-    with BD_Session() as DB_sessao:
-        usuario = DB_sessao.get(Usuario, id)
+    with BD_Session() as bd_sessao:
+        usuario = bd_sessao.get(Usuario, id)
         if usuario:
             usuario = usuario.to_print()
     return usuario
@@ -32,60 +32,60 @@ def usuario_novo(nome, login, senha):
 
     senha_hash = generate_password_hash(senha)
 
-    with BD_Session() as DB_sessao:
+    with BD_Session() as bd_sessao:
         usuario = Usuario(nome=nome,
                           login=login,
                           senha=senha_hash,
                           perfil=perfil,
                           bloqueado=bloqueado)
-        DB_sessao.add(usuario)
-        DB_sessao.commit()
+        bd_sessao.add(usuario)
+        bd_sessao.commit()
         resultado = True
 
     return resultado
 
 def usuario_alterar(id, nome, login, perfil):
     resultado = False
-    with BD_Session() as DB_sessao:
-        usuario = DB_sessao.get(Usuario, id)
+    with BD_Session() as bd_sessao:
+        usuario = bd_sessao.get(Usuario, id)
         if(usuario):
             usuario.nome = nome
             usuario.login = login
             usuario.perfil = perfil
-            DB_sessao.commit()
+            bd_sessao.commit()
             resultado = True
 
     return resultado
 
 def usuario_aprovar(id):
     resultado = False
-    with BD_Session() as DB_sessao:
-        usuario = DB_sessao.get(Usuario, id)
+    with BD_Session() as bd_sessao:
+        usuario = bd_sessao.get(Usuario, id)
         if(usuario):
             usuario.bloqueado = "N"
-            DB_sessao.commit()
+            bd_sessao.commit()
             resultado = True
 
     return resultado
 
 def usuario_bloquear(id):
     resultado = False
-    with BD_Session() as DB_sessao:
-        usuario = DB_sessao.get(Usuario, id)
+    with BD_Session() as bd_sessao:
+        usuario = bd_sessao.get(Usuario, id)
         if(usuario):
             usuario.bloqueado = "S"
-            DB_sessao.commit()
+            bd_sessao.commit()
             resultado = True
             
     return resultado
 
 def usuario_excluir(id):
     resultado = False
-    with BD_Session() as DB_sessao:
-        usuario = DB_sessao.get(Usuario, id)
+    with BD_Session() as bd_sessao:
+        usuario = bd_sessao.get(Usuario, id)
         if(usuario):
-            DB_sessao.delete(usuario)
-            DB_sessao.commit()
+            bd_sessao.delete(usuario)
+            bd_sessao.commit()
             resultado = True
 
     return resultado
@@ -100,8 +100,8 @@ def usuario_logon(login, senha):
     #limpar sessao
     session.clear()
 
-    with BD_Session() as DB_sessao:
-        usuario = DB_sessao.query(Usuario).filter(Usuario.login == login).first()
+    with BD_Session() as bd_sessao:
+        usuario = bd_sessao.query(Usuario).filter(Usuario.login == login).first()
         if (usuario and check_password_hash(usuario.senha, senha)):
             if usuario.bloqueado == 'N':
                 session["usuario_id"] = usuario.id
@@ -119,8 +119,8 @@ def usuario_logon(login, senha):
 def usuario_perfil():
     usuario = None
     if "usuario_id" in session:
-        with BD_Session() as DB_sessao:
-            usuario = DB_sessao.get(Usuario, session["usuario_id"])
+        with BD_Session() as bd_sessao:
+            usuario = bd_sessao.get(Usuario, session["usuario_id"])
             if usuario:
                 usuario = usuario.to_print()
 
@@ -131,11 +131,11 @@ def usuario_alterar_senha(id, senha):
 
     senha_hash = generate_password_hash(senha)
 
-    with BD_Session() as DB_sessao:
-        usuario = DB_sessao.get(Usuario, id)
+    with BD_Session() as bd_sessao:
+        usuario = bd_sessao.get(Usuario, id)
         if usuario:
             usuario.senha = senha_hash
-            DB_sessao.commit()
+            bd_sessao.commit()
             resultado = True
 
     return resultado
