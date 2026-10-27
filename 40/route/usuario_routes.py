@@ -12,7 +12,7 @@ def rote_usuario_principal():
     else:
         return render_template("usuario/perfil.html")
     
-@usuario_routes.route('/login')
+@usuario_routes.route('/login', methods=['GET'])
 def rota_usuario_login():
     return render_template("usuario/login.html")
 
@@ -20,13 +20,14 @@ def rota_usuario_login():
 def rota_usuario_registro():
     return render_template("usuario/registro.html")
 
-@usuario_routes.route('/gerenciar', methods=['GET'])
+@usuario_routes.route('/gerenciar')
+@admin_required
 def rota_usuario_gerenciar():
-    return render_template("usuario/gerenciar.html")
+    return render_template('usuario/gerenciar.html')
 
-@usuario_routes.route('/ver_perfil', methods=['GET'])
+@usuario_routes.route('/ver_perfil')
 def rota_usuario_ver_perfil():
-    return render_template("usuario/ver_perfil.html")
+    return render_template("usuario/perfil.html")
 
 @usuario_routes.route('/novo', methods=['POST'])
 def rota_usuario_novo():
@@ -35,11 +36,11 @@ def rota_usuario_novo():
 
     if request.is_json:
         data = request.get_json()
-        nome = data.get("nome")
-        login = data.get("login")
-        senha = data.get("senha")
+        nome = data.get('nome')
+        email = data.get('email')
+        senha = data.get('senha')
 
-        resultado = usuario_novo(nome, login, senha)
+        resultado = usuario_novo(nome, email, senha)
         if resultado: 
             mensagem = "Usuário cadastrado com sucesso!"
             resultado = True
@@ -50,6 +51,21 @@ def rota_usuario_novo():
 
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
+@usuario_routes.route('/perfil', methods=['GET'])
+def rota_usuario_detalhe_perfil():
+    resultado = False
+    mensagem = ""
+
+    usuario = usuario_perfil()
+    if usuario:
+        resultado = True
+        mensagem = "Detalhes do usuário obtidos com sucesso."
+    else:
+        resultado = False
+        mensagem = "Falha ao obter detalhes do usuário."
+
+    return jsonify({"resultado": resultado, "mensagem": mensagem, "usuario": usuario})
+
 @usuario_routes.route('/logon', methods=['POST'])
 def rota_usuario_logon():
     resultado = False
@@ -57,10 +73,10 @@ def rota_usuario_logon():
 
     if request.is_json:
         data = request.get_json()
-        login = data.get("login")
-        senha = data.get("senha")
+        email = data.get('email')
+        senha = data.get('senha')
 
-        resultado, mensagem = usuario_logon(login, senha)
+        resultado, mensagem = usuario_logon(email, senha)
         return jsonify({"resultado": resultado, "mensagem": mensagem})
     else:
         mensagem = "Requisição inválida"
@@ -69,11 +85,10 @@ def rota_usuario_logon():
 @usuario_routes.route('/logout', methods=['GET'])
 def rota_usuario_logout():
     usuario_logout()
-    return redirect(url_for('usuario_routes.rota_usuario_login'))
+    return redirect(url_for("usuario_routes.rota_usuario_login"))
 
-@usuario_routes.route('/alterar_senha', methods=['POST'])
+@usuario_routes.route('/alterar_senha', methods=['PUT'])
 def rota_usuario_alterar_senha():
-    usuario_logout()
     resultado = False
     mensagem = ""
 
@@ -96,6 +111,7 @@ def rota_usuario_alterar_senha():
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @usuario_routes.route('/listar', methods=['GET'])
+@admin_required
 def rota_usuario_listar():
     resultado = False
     mensagem = ""
@@ -109,6 +125,7 @@ def rota_usuario_listar():
     return jsonify({"resultado": resultado, "mensagem": mensagem, "usuarios": usuario})
 
 @usuario_routes.route('/aprovar/<int:id>', methods=['PUT'])
+@admin_required
 def rota_usuario_aprovar(id):
     resultado = False
     mensagem = ""
@@ -123,6 +140,7 @@ def rota_usuario_aprovar(id):
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @usuario_routes.route('/bloquear/<int:id>', methods=['PUT'])
+@admin_required
 def rota_usuario_bloquear(id):
     resultado = False
     mensagem = ""
@@ -137,6 +155,7 @@ def rota_usuario_bloquear(id):
     return jsonify({"resultado": resultado, "mensagem": mensagem,})
 
 @usuario_routes.route('/detalhe/<int:id>', methods=['GET'])
+@admin_required
 def rota_usuario_detalhe(id):
     resultado = False
     mensagem = ""
@@ -159,12 +178,12 @@ def rota_usuario_alterar():
 
     if request.is_json:
         data = request.get_json()
-        id = data.get("id")
-        nome = data.get("nome")
-        login = data.get("login")
-        perfil = data.get("perfil")
+        id = data.get('id')
+        nome = data.get('nome')
+        email = data.get('email')
+        perfil = data.get('perfil')
 
-        resultado = usuario_alterar(id, nome, login, perfil)
+        resultado = usuario_alterar(id, nome, email, perfil)
         if resultado:
             resultado = True
             mensagem = "Usuário alterado com sucesso!"
@@ -176,11 +195,12 @@ def rota_usuario_alterar():
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @usuario_routes.route('/excluir/<int:id>', methods=['DELETE'])
+@admin_required
 def rota_usuario_excluir(id):
     resultado = False
     mensagem = ""
 
-    usuario = usuario_excluir(id)
+    resultado = usuario_excluir(id)
     if resultado:
         resultado = True
         mensagem = "Usuário excluído com sucesso!"
