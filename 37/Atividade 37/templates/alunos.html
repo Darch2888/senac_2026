@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Alunos</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Cadastro de Alunos</h2>
+
+    <form name="frmAluno" id="frmAluno" action="" method="">
+        <label for="id">Identificador:</label><br>
+        <input type="text" id="id" name="id" value="{{ aluno.id }}" readonly><br><br>
+
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" value="{{ aluno.nome }}" required><br><br>
+
+        <label for="matricula">Matricula:</label><br>
+        <input type="text" id="matricula" name="matricula" value="{{ aluno.matricula }}" required><br><br>
+
+        <label for="curso">Curso:</label><br>
+        <input type="text" id="curso" name="curso" value="{{ aluno.curso }}" required><br><br>
+
+        <button type="button" onclick="javascript:enviar();">Cadastrar/Alterar</button> 
+        <button type="reset">Limpar</button> 
+    </form>
+    <div>{{ mensagem }}</div>
+
+    <h3>Alunos Cadastrados</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nome</th>
+                <th>Matricula</th>
+                <th>Curso</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno.id }}</td>
+                    <td>{{ aluno.nome }}</td>
+                    <td>{{ aluno.matricula }}</td>
+                    <td>{{ aluno.curso }}</td>
+                    <td>
+                        <button type="button" onclick="javascript:detalhe({{ aluno.id }});">Editar</button> 
+                        <button type="button" onclick="javascript:excluir({{ aluno.id }});">Excluir</button>                         
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+<script>
+    function enviar(){
+        form = document.getElementById('frmAluno')
+        id = document.getElementById('id').value;
+        form.method ="POST";
+        if(id == ""){            
+            form.action="/salvar"
+        }else{
+            form.action="/alterar"
+        }
+        form.submit();
+    }
+    function detalhe(id){
+        form = document.getElementById('frmAluno')
+
+        form.reset();
+        document.getElementById('id').value = id;
+        form.method="POST"
+        form.action="/detalhe"        
+        form.submit();        
+    }
+    function excluir(id){
+        if(confirm("Deseja realmente excluir o aluno " + id + "?")){
+            form = document.getElementById('frmAluno')
+
+            form.reset();
+            document.getElementById('id').value = id;
+            form.method="POST"
+            form.action="/excluir"        
+            form.submit();        
+        }
+    }
+</script>
+</html>

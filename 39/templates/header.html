@@ -1,0 +1,25 @@
+    <!-- Menu Superior Fixo -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <!-- Nome do Sistema -->
+            Exercício 39 - Controle de Acesso
+            <!-- Usuário alinhado à direita -->
+            <div class="ms-auto">
+                <div class="dropdown">
+                    {% if "usuario_id" in session %}
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                        {{session['usuario_nome']}}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a href="{{ url_for('usuario_routes.rota_usuario_ver_perfil') }}" class="dropdown-item">Perfil</a></li>
+                        {% if session['usuario_perfil'] == "ADMIN" %}
+                        <li><a href="{{ url_for('usuario_routes.rota_usuario_gerenciar') }}" class="dropdown-item">Gerenciar Usuários</a></li>
+                        {% endif %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="{{ url_for('usuario_routes.rota_usuario_logout') }}" class="dropdown-item">Sair</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>

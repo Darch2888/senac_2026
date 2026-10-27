@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def inicio():
     # entrada de dados
     valor_hora = float(input("Informe o Valor por hora: "))
@@ -15,3 +16,20 @@ def inicio():
 
 if __name__ == "__main__":
     inicio()
+=======
+#entrada de dados
+valorHora = float(input("Informe o valor por hora: "))
+qhora = float(input("Informe a quantidade de horas trabalhadas: "))
+perDesc = float(input("Informe o percentual do INSS: "))
+
+#processamento
+salarioBruto = valorHora * qhora
+valorINSS = (perDesc * salarioBruto)/100
+salarioLiquido = salarioBruto - valorINSS
+
+#saida de dados
+print(f"Salário bruto: ", salarioBruto)
+print(f"Desconto INSS: ", valorINSS)
+print(f"Salario liquido: ", salarioLiquido)
+		
+>>>>>>> 0638b7055c0e3f84a609c43094336f17582d1c3e

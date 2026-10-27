@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boas-vindas</title>
+</head>
+<body>
+    <h1>Olá, {{ contato.nome }} obrigado por acessar o formulario!</h1>
+    <br>
+    <p>Dados informado:</p>
+    <p>
+        <b>Nome:</b> {{ contato.nome }}
+        <br>
+        <b>Email:</b> {{ contato.email }}
+    </p>
+    <br>
+    <p>Clique <a href="{{ url_for('inicio') }}">aqui</a> para enviar outra resposta</p>
+</body>
+</html>

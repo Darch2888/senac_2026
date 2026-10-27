@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 def inicio():
     # entrada de dados
     nome_completo = str(input("Informe o Nome Completo: "))
@@ -20,3 +21,22 @@ def inicio():
 
 if __name__ == "__main__":
     inicio()
+=======
+#entrada de dados
+nome_completo = str(input("Informe o nome completo: "))
+
+#processamento
+nome, sobrenome = nome_completo.split(" ", 1)
+sobrenome = sobrenome.upper()
+SobreNome = tex.caixa_alta(SobreNome)
+		
+PrimeiraLetraNome = tex.extrair_subtexto(Nome, 0, 1)
+PrimeiraLetraNome = tex.caixa_alta(PrimeiraLetraNome)
+
+RestoNome = tex.extrair_subtexto(Nome, 1, tex.numero_caracteres(Nome))
+RestoNome = tex.caixa_baixa(RestoNome)
+		
+#saida de dados
+		#escreva("\n O nome informado é ", vSobreNome, ", ", vPrimeiraLetraNome, vRestoNome)
+
+>>>>>>> 0638b7055c0e3f84a609c43094336f17582d1c3e
