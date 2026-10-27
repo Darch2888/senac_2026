@@ -14,7 +14,7 @@ function usuario_registrar_limpar_tela(event){
     event.preventDefault();
     if(formulario_registro){
         document.getElementById("nome").value = "";
-        document.getElementById("login").value = "";
+        document.getElementById("email").value = "";
         document.getElementById("senha").value = "";
     }
 }
@@ -26,12 +26,12 @@ async function usuario_registrar_salvar(event){
         let rota = "/novo";
         let metodo = "POST";
         let nome = document.getElementById("nome").value;
-        let login = document.getElementById("login").value;
+        let email = document.getElementById("email").value;
         let senha = document.getElementById("senha").value;
         
         let usuario = {
             nome:nome,
-            login:login,
+            email:email,
             senha:senha
         }
 
@@ -53,7 +53,7 @@ async function usuario_registrar_salvar(event){
 function usuario_login_limpar_tela(event){
     event.preventDefault();
     if(formulario_login){
-        document.getElementById("login").value = "";
+        document.getElementById("email").value = "";
         document.getElementById("senha").value = "";
     }
 }
@@ -63,11 +63,11 @@ async function usuario_logon(event){
     if(formulario_login){
         let rota = "/logon";
         let metodo = "POST";
-        let login = document.getElementById("login").value;
+        let email = document.getElementById("email").value;
         let senha = document.getElementById("senha").value;
         
         let usuario = {
-            login:login,
+            email:email,
             senha:senha
         }
 
@@ -104,7 +104,7 @@ async function usuario_perfil_carregar_dados(){
         if(json_retorno.resultado){            
             document.getElementById("id").value = json_retorno.usuario.id;
             document.getElementById("nome").value = json_retorno.usuario.nome;
-            document.getElementById("login").value = json_retorno.usuario.login;
+            document.getElementById("email").value = json_retorno.usuario.email;
             document.getElementById("senha").value = "";
         }
     }
@@ -146,7 +146,6 @@ async function usuario_gerenciar_carregar_usuarios(){
 
         // pegando o retorno do backend
         const json_retorno = await retorno.json();
-        mostrar_mensagem(json_retorno.mensagem);
         let usuarios = json_retorno.usuarios;
 
         if(usuarios){
@@ -165,7 +164,7 @@ async function usuario_gerenciar_carregar_usuarios(){
                     <tr>
                         <td>${usuario.id}</td>
                         <td>${usuario.nome}</td>
-                        <td>${usuario.login}</td>
+                        <td>${usuario.email}</td>
                         <td>${usuario.perfil}</td>
                         <td>
                             <button class="btn btn-sn btn-primary btn-sm" onclick="editar(${usuario.id})" >Editar</button>
@@ -238,7 +237,7 @@ function usuario_gerenciar_limpar_tela(event){
     if(formulario_gerencial){
         document.getElementById("id").value = "";
         document.getElementById("nome").value = "";
-        document.getElementById("login").value = "";
+        document.getElementById("email").value = "";
         document.getElementById("perfil").value = "";
     }
 }
@@ -255,7 +254,7 @@ async function editar(id){
             if (usuario) {
                 document.getElementById("id").value = usuario.id;
                 document.getElementById("nome").value = usuario.nome;
-                document.getElementById("login").value = usuario.login;
+                document.getElementById("email").value = usuario.email;
                 document.getElementById("perfil").value = usuario.perfil;
             }            
         }
@@ -270,12 +269,13 @@ async function usuario_gerenciar_salvar(event){
         let metodo = "PUT";
         let id = document.getElementById("id").value;
         let nome = document.getElementById("nome").value;
-        let login = document.getElementById("login").value;
+        let email = document.getElementById("email").value;
         let perfil = document.getElementById("perfil").value;
         
         let usuario = {
             id:id,
             nome:nome,
+            email:email,
             login:login,
             perfil:perfil
         }
