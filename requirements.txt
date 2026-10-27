@@ -1,0 +1,11 @@
+# Bibliotecas Python para exercícios Senac 2026
+
+# MySQL Connector
+pymysql==1.1.0
+mysql-connector-python==8.3.0
+
+# Biblioteca matemática (já incluída no Python, mas listada para referência)
+# math - built-in
+
+# Outras bibliotecas úteis para exercícios
+python-dateutil==2.9.0

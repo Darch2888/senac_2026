@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Servidor Web
+  web:
+    image: nginx:alpine
+    container_name: senac_web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    networks:
+      - frontend
+
+  # API Simulado (Hello World em Python)
+  api:
+    image: python:alpine
+    container_name: senac_api
+    command: sh -c "echo 'API rodando na porta 5000' && sleep 3600"
+    networks:
+      - frontend
+      - backend
+
+  # Banco de Dados
+  database:
+    image: mysql:8.0
+    container_name: senac_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: loja
+      MYSQL_USER: loja_user
+      MYSQL_PASSWORD: loja123
+    networks:
+      - backend
+    volumes:
+      - db_data:/var/lib/mysql
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  db_data:

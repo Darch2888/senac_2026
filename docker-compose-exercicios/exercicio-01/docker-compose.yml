@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  # Serviço web - Nginx
+  web:
+    image: nginx:alpine
+    container_name: senac_web
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # Serviço para visualizar logs
+  # Recomendação: use 'docker-compose logs -f web'
