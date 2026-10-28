@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Senac Docker - Exercício 3</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .card { background: #f0f0f0; padding: 20px; margin: 10px 0; border-radius: 8px; }
+        .success { background: #d4edda; }
+    </style>
+</head>
+<body>
+    <h1>🐳 Exercício 3 - Volumes</h1>
+
+    <div class="card success">
+        <h2>✅ Arquivos funcionando!</h2>
+        <p>Este HTML está vindo do seu computador (bind mount)</p>
+    </div>
+
+    <div class="card">
+        <h3>📝 Como funciona:</h3>
+        <ul>
+            <li>Edite este arquivo: <code>html/index.html</code></li>
+            <li>Atualize o navegador</li>
+            <li>Veja as mudanças instantaneamente!</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>🗄️ Banco de Dados:</h3>
+        <p>O MySQL está rodando com um volume nomeado. Os dados persistem!</p>
+        <p>Teste no container:</p>
+        <code>docker-compose exec database mysql -uwp_user -pwp123 wordpress</code>
+    </div>
+</body>
+</html>

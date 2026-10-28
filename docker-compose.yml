@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # MySQL Database para exercícios futuros
+  mysql:
+    image: mysql:8.0
+    container_name: senac_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: senac_db
+      MYSQL_USER: senac_user
+      MYSQL_PASSWORD: senac123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - senac_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Python para executar os exercícios
+  python:
+    build: .
+    container_name: senac_python
+    volumes:
+      - .:/app
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    networks:
+      - senac_network
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
+
+networks:
+  senac_network:
+    driver: bridge

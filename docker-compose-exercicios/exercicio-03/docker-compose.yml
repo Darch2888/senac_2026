@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # WordPress + MySQL para demonstrar volumes
+  database:
+    image: mysql:8.0
+    container_name: wp_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp123
+    volumes:
+      # Named volume - persiste dados
+      - db_data:/var/lib/mysql
+      # Bind mount - arquivo SQL personalizado
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+  # Aplicação web
+  app:
+    image: nginx:alpine
+    container_name: wp_web
+    ports:
+      - "8080:80"
+    volumes:
+      # Bind mount - arquivos do host para container
+      - ./html:/usr/share/nginx/html
+      # Named volume - cache
+      - cache_data:/var/cache/nginx
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  cache_data:
