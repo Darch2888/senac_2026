@@ -2,6 +2,17 @@ def get_medicos_ativos(cursor):
     cursor.execute("SELECT id_medico, nome_medico, especialidade FROM medicos WHERE status_medico = 'ativo'")
     return cursor.fetchall()
 
+def get_todos_medicos(cursor):
+    cursor.execute("SELECT * FROM medicos ORDER BY nome_medico")
+    return cursor.fetchall()
+
+def inserir_medico(cursor, nome, especialidade):
+    cursor.execute("INSERT INTO medicos (nome_medico, especialidade) VALUES (%s, %s)", (nome, especialidade))
+    return cursor.lastrowid
+
+def atualizar_status_medico(cursor, id_medico, status):
+    cursor.execute("UPDATE medicos SET status_medico = %s WHERE id_medico = %s", (status, id_medico))
+
 def get_conflito_agenda(cursor, id_medico, data_hora_inicio, data_hora_termino):
     query = """
         SELECT id_agendamento FROM agendamentos 

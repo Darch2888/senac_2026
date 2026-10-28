@@ -7,13 +7,16 @@ CORS(app)
 
 app.secret_key = "senha_super_secreta"
 
-# Registrando rotas da API
 app.register_blueprint(agendamento_routes, url_prefix='/api')
 
-# Rota principal para servir o Frontend
 @app.route('/')
 def principal():
     return render_template("index.html")
+
+# NOVA ROTA: Painel Admin
+@app.route('/admin')
+def admin():
+    return render_template("admin.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

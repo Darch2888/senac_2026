@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Clínica Bem Estar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .admin-layout { display: flex; min-height: 100vh; background: rgba(255,255,255,0.4); }
+        .sidebar { width: 260px; background: var(--glass-bg); backdrop-filter: blur(20px); border-right: 2px solid var(--glass-border); padding: 2rem 1rem; display: flex; flex-direction: column; gap: 20px;}
+        .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 2px solid var(--glass-border);}
+        .stat-card h3 { color: var(--text-muted); font-size: 1rem; }
+        .stat-card p { font-size: 3rem; font-weight: 900; color: var(--primary); }
+    </style>
+</head>
+<body class="admin-layout">
+    
+    <aside class="sidebar">
+        <div class="logo" style="justify-content: center; margin-bottom: 2rem;">
+            <i class="ph ph-heartbeat"></i> <span>Admin</span>
+        </div>
+        <button class="nav-item ativo" onclick="mudarAba('dashboard', this)"><i class="ph ph-squares-four"></i> Dashboard</button>
+        <button class="nav-item" onclick="mudarAba('medicos', this)"><i class="ph ph-stethoscope"></i> Gestão Médica</button>
+        <a href="/" class="nav-item" style="margin-top: auto; text-decoration: none;"><i class="ph ph-arrow-left"></i> Voltar ao Site</a>
+    </aside>
+
+    <main class="main-content">
+        <!-- Dashboard Aba -->
+        <section id="aba-dashboard" class="aba ativa">
+            <h2 style="font-weight: 900; font-size: 2rem; margin-bottom: 1.5rem;">Visão Geral</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total de Agendamentos</h3>
+                    <p id="stat-agendamentos">-</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Especialistas Ativos</h3>
+                    <p id="stat-medicos">-</p>
+                </div>
+            </div>
+            
+            <div class="card" style="padding: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Histórico Recente</h3>
+                <div class="table-container">
+                    <table id="tabela-admin-consultas">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Paciente</th>
+                                <th>Médico</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gestão Médica Aba -->
+        <section id="aba-medicos" class="aba" style="display: none;">
+            <h2 style="font-weight: 900; font-size: 2rem; margin-bottom: 1.5rem;">Equipa Médica</h2>
+            
+            <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Adicionar Especialista</h3>
+                <form id="form-novo-medico" style="display: flex; gap: 1rem; align-items: flex-end;">
+                    <div class="input-wrapper" style="flex: 1;">
+                        <input type="text" id="novo_nome_medico" placeholder="Nome Completo" required style="padding-left: 20px;">
+                    </div>
+                    <div class="input-wrapper" style="flex: 1;">
+                        <input type="text" id="nova_especialidade" placeholder="Especialidade" required style="padding-left: 20px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="padding: 18px 24px;">Adicionar</button>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <table id="tabela-admin-medicos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Especialidade</th>
+                            <th>Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>
