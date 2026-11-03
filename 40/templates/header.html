@@ -3,6 +3,8 @@
         <div class="container-fluid">
             <!-- Nome do Sistema -->
             <a class="navbar-brand" href="{{ url_for('index') }}">🎬 Filmes em Cartaz</a>
+            {% if request.endpoint == 'index' %}
+            <a class="navbar-brand" href="#" onclick="filme_carregar_top5_filmes()">⭐TOP Filmes em avaliados</a>
             <div class="ms-auto">
                 <!-- Formulário de Pesquisa -->
                 <form  method="POST" class="d-flex" role="search" onsubmit="filme_carregar_pesquisa_filmes(event)">
@@ -10,6 +12,7 @@
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
             </div>
+            {% endif %}
             <!-- Usuário alinhado à direita -->
             <div class="ms-auto">
                 <div class="dropdown">

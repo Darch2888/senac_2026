@@ -1,17 +1,36 @@
-from flask import session
 import requests
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
+from sqlalchemy import func
 from conn import BD_Session
-from model.filme import Filme
+from models.filme import Filme
+from models.avaliacao import Avaliacao
 
 def filme_listar_todos():
     filmes = []
 
     with BD_Session() as bd_sessao:
-        dados = bd_sessao.query(Filme).order_by(Filme.titulo).all()
+        dados = bd_sessao.query(Filme).order_by(Filme.data_estreia.desc()).all()
         if dados:
             filmes = [filme.to_print() for filme in dados]
+
+    return filmes
+
+def filme_listar_top5():
+    filmes = []
+
+    with BD_Session() as bd_sessao:
+        dados = (bd_sessao
+                 .query(Filme)
+                 .join(Avaliacao)
+                 .filter(Avaliacao.check_ofensivo == "N")
+                 .group_by(Filme.id)
+                 .having(func.count(Avaliacao.id) >= 1)
+                 .order_by(func.avg(Avaliacao.nota).desc())
+                 .limit(5)
+                 .all()
+                )
+        if dados:
+            filmes = [filme.to_print() for filme in dados]
+
     return filmes
 
 def filme_listar_id(id):
@@ -19,16 +38,19 @@ def filme_listar_id(id):
     with BD_Session() as bd_sessao:
         filme = bd_sessao.get(Filme, id)
         if filme:
-            filme = filme.to_print()
+            filme = filme.to_print(True)
+
     return filme
 
 def filme_listar_pesquisa(titulo):
-    filme = None
+    filmes = []
+
     with BD_Session() as bd_sessao:
-        filme = bd_sessao.get(Filme, titulo)
-        if filme:
-            filme = filme.to_print()
-    return filme
+        dados = bd_sessao.query(Filme).filter(Filme.titulo.contains(titulo)).order_by(Filme.titulo.desc()).all()
+        if dados:
+            filmes = [filme.to_print() for filme in dados]
+
+    return filmes
 
 def filme_atualizar_tabela():
 
@@ -49,11 +71,11 @@ def filme_atualizar_tabela():
 
     # montando a lista de filmes com os dados que precisamos
     for item in lista_filmes_site:
-        if item["original_title"] not in filmes_salvos:
+        if item["title"] not in filmes_salvos:
             novos_filmes.append(
                 Filme(
                     id=item["id"],
-                    titulo=item["original_title"],
+                    titulo=item["title"],
                     descricao=item["overview"],
                     descricao_breve=item["overview"][:100],
                     data_estreia=item["release_date"],
