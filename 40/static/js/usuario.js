@@ -276,7 +276,6 @@ async function usuario_gerenciar_salvar(event){
             id:id,
             nome:nome,
             email:email,
-            login:login,
             perfil:perfil
         }
 

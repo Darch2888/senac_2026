@@ -1,12 +1,12 @@
 from flask import Flask, Blueprint, jsonify, redirect, request, render_template, url_for
-from auth.decorators import admin_required
-from routes import usuario_routes
 from services.avaliacao_service import *
 from services.filme_service import filme_listar_id
+from auth.decorators import role_required
 
 avaliacao_routes = Blueprint('avaliacao_routes', __name__)
 
 @avaliacao_routes.route('/alertas/')
+@role_required(["ADMIN", "MODERADOR"])
 def rota_avaliacao_alertas():
     return render_template('avaliar.html')
 
@@ -57,6 +57,7 @@ def rota_avaliacao_denunciar(id_avaliacao):
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @avaliacao_routes.route('/inofensivo/<int:id_avaliacao>', methods=['put'])
+@role_required(["ADMIN", "MODERADOR"])
 def rota_avaliacao_inofensivo(id_avaliacao):
     resultado = False
     mensagem = ""
@@ -70,6 +71,7 @@ def rota_avaliacao_inofensivo(id_avaliacao):
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @avaliacao_routes.route('/ofensivo/<int:id_avaliacao>', methods=['put'])
+@role_required(["ADMIN", "MODERADOR"])
 def rota_avaliacao_ofensivo(id_avaliacao):
     resultado = False
     mensagem = ""

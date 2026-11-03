@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, jsonify, redirect, request, render_template, url_for
-from auth.decorators import admin_required
+from auth.decorators import role_required
 from services.filme_service import *
 
 filme_routes = Blueprint('filme_routes', __name__)
@@ -55,7 +55,7 @@ def rota_filme_listar_top5():
     return jsonify({"resultado": resultado, "mensagem": mensagem, "filmes": filmes})
 
 @filme_routes.route('/atualizar_lista', methods=['GET'])
-@admin_required
+@role_required(["ADMIN"])
 def rota_filme_atualizar_base():
     resultado = False
     mensagem = ""

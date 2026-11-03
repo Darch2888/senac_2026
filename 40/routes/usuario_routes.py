@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, jsonify, redirect, request, render_template, url_for
 from services.usuario_service import *
-from auth.decorators import admin_required
+from auth.decorators import role_required
 
 usuario_routes = Blueprint('usuario_routes', __name__)
 
@@ -21,7 +21,7 @@ def rota_usuario_registro():
     return render_template("usuario/registro.html")
 
 @usuario_routes.route('/gerenciar')
-@admin_required
+@role_required("ADMIN")
 def rota_usuario_gerenciar():
     return render_template('usuario/gerenciar.html')
 
@@ -31,7 +31,7 @@ def rota_usuario_ver_perfil():
 
 #Rotas de administracao
 @usuario_routes.route('/listar', methods=['GET'])
-@admin_required
+@role_required("ADMIN")
 def rota_usuario_listar():
     resultado = False
     mensagem = ""
@@ -46,7 +46,7 @@ def rota_usuario_listar():
     return jsonify({"resultado": resultado, "mensagem": mensagem, "usuarios": usuarios})
 
 @usuario_routes.route('/aprovar/<int:id>', methods=['PUT'])
-@admin_required
+@role_required("ADMIN")
 def rota_usuario_aprovar(id):
     resultado = False
     mensagem = ""
@@ -60,7 +60,7 @@ def rota_usuario_aprovar(id):
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @usuario_routes.route('/bloquear/<int:id>', methods=['PUT'])
-@admin_required
+@role_required("ADMIN")
 def rota_usuario_bloquear(id):
     resultado = False
     mensagem = ""
@@ -75,7 +75,7 @@ def rota_usuario_bloquear(id):
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @usuario_routes.route('/detalhe/<int:id>', methods=['GET'])
-@admin_required
+@role_required("ADMIN")
 def rota_usuario_detalhe(id):
     resultado = False
     mensagem = ""
@@ -91,7 +91,7 @@ def rota_usuario_detalhe(id):
     return jsonify({"resultado": resultado, "mensagem": mensagem, "usuario": usuario})
 
 @usuario_routes.route('/excluir/<int:id>', methods=['DELETE'])
-@admin_required
+@role_required("ADMIN")
 def rota_usuario_excluir(id):
     resultado = False
     mensagem = ""
@@ -107,7 +107,7 @@ def rota_usuario_excluir(id):
     return jsonify({"resultado": resultado, "mensagem": mensagem})
 
 @usuario_routes.route('/alterar', methods=['PUT'])
-@admin_required
+@role_required("ADMIN")
 def rota_usuario_alterar():
     resultado = False
     mensagem = ""

@@ -5,9 +5,7 @@ import traceback
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/')
-def home():
-    return jsonify({"mensagem":"backend funcionando"})
+
 
 @app.errorhandler(404)
 def mensagem_rota_invalida(error):

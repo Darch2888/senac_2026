@@ -1,6 +1,15 @@
 from flask import Flask, session, request, redirect, url_for
 
 rotas_publicas = ["static",
+                  #inicio das rotas basica dos sites
+                  "index",
+                  "filme_routes.rota_filme_listar",
+                  "filme_routes.rota_filme_listar_top5",
+                  "filme_routes.rota_filme_pesquisar",
+                  "avaliacao_routes.rota_avaliacao_ver",
+                  "avaliacao_routes.rota_avaliacao_listar",
+                  "avaliacao_routes.rota_avaliacao_denunciar",
+                  #inicio das rotas acesso
                   "usuario_routes.rota_usuario_login",
                   "usuario_routes.rota_usuario_registro",
                   "usuario_routes.rota_usuario_logon",
