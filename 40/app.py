@@ -1,3 +1,4 @@
+import traceback
 from flask import Flask, Blueprint, jsonify, render_template, request
 from flask_cors import CORS
 from services.usuario_service import usuario_alterar, usuario_alterar_senha, usuario_aprovar
